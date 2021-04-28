@@ -204,14 +204,14 @@ def loss_function(pi, sigma, mu, y):
             loc=mu_i, covariance_matrix=sigma_i), reinterpreted_batch_ndims=0)
         gmm_torch = D.MixtureSameFamily(mix, comp)
         log_prob += gmm_torch.log_prob(y[i, :].float())
-        if i % 10 == 0:
-            evaluate(x)
     return - log_prob
 
 
 def evaluate(x):
     # TODO: *** compare the real conditional distribution with the learned conditional distribution
     pi, sigma, mu = network(x.float())
+
+    # CAN USE TEST LOGLIKELIHOOD OR COMPUTE THE W-DISTANCE
 
     expected_dist = 0
     n_sample = np.shape(x)[0]
@@ -261,6 +261,8 @@ def train(epochs, network):
         loss.backward()
         print('[%d/%d] Loss:%.4f' % (i, epochs, loss))
         optimizer.step()
+        if i % 10 == 0:
+            evaluate(x)
     return network
 
 
