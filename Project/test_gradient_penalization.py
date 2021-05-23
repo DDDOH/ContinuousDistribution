@@ -56,10 +56,10 @@ def gradient_penalty():
     pred_x_loc = pred(x_loc)
     weight = torch.ones(pred_x_loc.size())
     grad_net_x = torch.autograd.grad(outputs=pred_x_loc, inputs=x_loc, grad_outputs=weight, create_graph=True)
-    return x_loc.squeeze(-1).detach(), grad_net_x[0].squeeze(-1), torch.sum(grad_net_x[0]**2).mean()
+    return x_loc.squeeze(-1).detach(), grad_net_x[0].squeeze(-1), torch.sum(grad_net_x[0]**2)/n_loc
 
 EPOCHS = 10000 # training epochs
-LAMBDA = 0 # or 0.01 seems properly # the weight of the gradient penalty term
+LAMBDA = 0.01 # or 0.01 seems properly # the weight of the gradient penalty term
 
 # the training iteration
 for i in progressbar.progressbar(range(EPOCHS), redirect_stdout=True):

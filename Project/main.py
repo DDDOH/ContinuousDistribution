@@ -1,3 +1,11 @@
+# TODO
+# update Mixture density network                [ ]  JX + YF
+# synthetic dataset                             [ ]  YF
+# real dataset                                  [ ]  JX
+# the penalty form (LP or approximation)        [ ]  YF
+# visualization                                 [ ]  YF + JF
+
+
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
